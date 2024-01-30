@@ -1,15 +1,15 @@
 export const theme = {
-  bg: "#FFF",
+  bg: "#f2f2f2",
   black: "#000",
   green: "#30D787",
   orange: "#D76C30",
   brand: {
-    redLight: "#fff",
+    redLight: "#FFABAD",
     red: "#D73035",
-    redDark: "fff",
+    redDark: "#8A1114",
   },
   gray: {
-    gray0: "2",
+    gray0: "#fff",
     gray100: "#",
     gray200: "#CCC",
     gray300: "#999",

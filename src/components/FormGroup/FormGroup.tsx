@@ -1,38 +1,61 @@
-import { Text, View } from "react-native";
+import { KeyboardType, Text, TextInput, View } from "react-native";
 import { ReactNode } from "react";
+import { Container, Input } from "./styles";
 
 interface FormGroupProps {
-  message: string;
+  errorMessage: string;
   label: string;
-  children: ReactNode;
+  placeholder: string;
+  keyboardType: KeyboardType;
+  value: string;
+  isPasswordInput?: boolean;
+  onChange: (event: any) => void;
 }
 
-const FormGroup = ({ children, message, label }: FormGroupProps) => {
+const FormGroup = ({
+  errorMessage,
+  label,
+  placeholder,
+  keyboardType,
+  value,
+  onChange,
+  isPasswordInput,
+}: FormGroupProps) => {
   return (
-    <View>
+    <Container>
       <Text
         style={{
+          color: errorMessage ? "#db1717" : "#333",
           marginLeft: 12,
           marginBottom: 6,
           fontFamily: "GeneralSans400",
-          color: "#333",
         }}
       >
         {label}
       </Text>
-      {children}
-      <Text
-        style={{
-          marginTop: 6,
-          marginBottom: 12,
-          marginLeft: 12,
-          fontFamily: "GeneralSans400",
-          color: "#db1717",
-        }}
-      >
-        {message && message}
-      </Text>
-    </View>
+      <Input
+        placeholder={placeholder}
+        keyboardType={keyboardType}
+        value={value}
+        secureTextEntry={isPasswordInput}
+        onChange={onChange}
+        errorMessage={errorMessage}
+      />
+
+      {errorMessage && (
+        <Text
+          style={{
+            marginTop: 2,
+            marginBottom: 0,
+            marginLeft: 12,
+            fontFamily: "GeneralSans400",
+            color: "#db1717",
+          }}
+        >
+          {errorMessage}
+        </Text>
+      )}
+    </Container>
   );
 };
 
