@@ -1,15 +1,20 @@
 import styled from "styled-components/native";
 
 export const Content = styled.SafeAreaView`
-  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: center;
   margin-top: 22px;
   background: ${({ theme }) => theme.bg};
+  background-color: blue;
 `;
 
 export const Intro = styled.View`
-  margin: 160px 0 80px 0;
+  margin: 160px 0;
   align-items: center;
   justify-content: center;
+  background-color: red;
 `;
 
 export const Welcome = styled.Text`
@@ -25,18 +30,18 @@ export const Waiter = styled.Text`
 
 export const Form = styled.View`
   margin: 0px 24px;
-  gap: 24px;
+  background-color: green;
+  justify-content: space-between;
+  background-color: red;
 `;
 
 export const MyButton = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.brand.red};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.gray.gray200 : theme.brand.red};
   align-items: center;
-  margin-top: 24px;
   padding: 14px 28px 14px 28px;
+  margin-top: 60px;
   border-radius: 24px;
-  &:disabled {
-    background-color: ${({ theme }) => theme.gray.gray200};
-  }
 `;
 
 export const ButtonText = styled.Text`

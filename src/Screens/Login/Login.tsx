@@ -28,18 +28,18 @@ const Login = () => {
 
   return (
     <Content>
-      <View>
-        <Intro>
-          <Welcome>Bem-vindo(a) ao</Welcome>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Waiter>WAITER</Waiter>
-            <Text style={{ fontFamily: "GeneralSans400", fontSize: 24 }}>
-              APP
-            </Text>
-          </View>
-        </Intro>
-        <KeyboardAvoidingView behavior="position">
-          <Form>
+      <Intro>
+        <Welcome>Bem-vindo(a) ao</Welcome>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Waiter>WAITER</Waiter>
+          <Text style={{ fontFamily: "GeneralSans400", fontSize: 24 }}>
+            APP
+          </Text>
+        </View>
+      </Intro>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+        <Form>
+          <View style={{ gap: 24 }}>
             <FormGroup
               label="E-mail"
               errorMessage={errorMessage}
@@ -60,7 +60,7 @@ const Login = () => {
               errorMessage={errorMessage}
               keyboardType="email-address"
               placeholder="Insira a sua senha"
-              value={userData.email}
+              value={userData.password}
               isPasswordInput={true}
               onChange={(
                 event: NativeSyntheticEvent<TextInputChangeEventData>
@@ -71,12 +71,12 @@ const Login = () => {
                 }))
               }
             />
-            <MyButton role="button">
-              <ButtonText>Fazer Login</ButtonText>
-            </MyButton>
-          </Form>
-        </KeyboardAvoidingView>
-      </View>
+          </View>
+          <MyButton aria-label="button" disabled={true} role="button">
+            <ButtonText>Fazer Login</ButtonText>
+          </MyButton>
+        </Form>
+      </KeyboardAvoidingView>
     </Content>
   );
 };
