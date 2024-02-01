@@ -6,10 +6,11 @@ interface FormGroupProps {
   errorMessage: string;
   label: string;
   placeholder: string;
-  keyboardType: KeyboardType;
+  keyboardType?: KeyboardType;
   value: string;
   isPasswordInput?: boolean;
-  onChange: (event: any) => void;
+  onChange?: (event: any) => void;
+  onEndEditing?: (event: any) => void;
 }
 
 const FormGroup = ({
@@ -18,8 +19,9 @@ const FormGroup = ({
   placeholder,
   keyboardType,
   value,
-  onChange,
   isPasswordInput,
+  onChange,
+  onEndEditing,
 }: FormGroupProps) => {
   return (
     <Container>
@@ -40,6 +42,7 @@ const FormGroup = ({
         secureTextEntry={isPasswordInput}
         onChange={onChange}
         errorMessage={errorMessage}
+        onEndEditing={onEndEditing}
       />
 
       {errorMessage && (

@@ -1,9 +1,12 @@
+import { isEmailValid } from "../../utils/isEmailValid";
 import {
   Keyboard,
   KeyboardAvoidingView,
   NativeSyntheticEvent,
   Text,
   TextInputChangeEventData,
+  TextInputEndEditingEventData,
+  TextInputTextInputEventData,
   View,
 } from "react-native";
 import {
@@ -16,19 +19,81 @@ import {
   Welcome,
 } from "./styles";
 import FormGroup from "../../components/FormGroup/FormGroup";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 const Login = () => {
-  const [errorMessage, setErrorMessage] = useState("asdasd");
+  const [errors, setErrors] = useState([
+    {
+      field: "",
+      message: "",
+    },
+  ]);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
 
   const [keyboard, setKeyboard] = useState(false);
-
   Keyboard.addListener("keyboardDidShow", () => setKeyboard(true));
   Keyboard.addListener("keyboardDidHide", () => setKeyboard(false));
+
+  function handleEmailEndEditing(
+    event: NativeSyntheticEvent<TextInputEndEditingEventData>
+  ) {
+    const typedEmail = event.nativeEvent.text;
+    console.log(typedEmail);
+
+    const errorAlreadyExists = errors.find((error) => error.field === "email");
+
+    console.log(!isEmailValid(typedEmail));
+    if (!isEmailValid(typedEmail) && !errorAlreadyExists) {
+      setErrors((prevState) => [
+        {
+          ...prevState,
+          field: "email",
+          message: "Email inválido",
+        },
+      ]);
+    }
+
+    if (isEmailValid(typedEmail)) {
+      setErrors(errors.filter((erro) => erro.field !== "email"));
+    }
+  }
+
+  function handlePasswordChange(
+    event: NativeSyntheticEvent<TextInputChangeEventData>
+  ) {
+    const typedPassword = event.nativeEvent.text;
+
+    const errorAlreadyExists = errors.find((erro) => erro.field === "password");
+
+    setUserData((prevState) => ({
+      ...prevState,
+      password: typedPassword,
+    }));
+
+    if (typedPassword.length < 8 && !errorAlreadyExists) {
+      setErrors((prevState) => [
+        {
+          ...prevState,
+          field: "password",
+          message: "A senha deve ter o mínimo de 8 caractéres",
+        },
+      ]);
+    }
+    if (typedPassword.length >= 8) {
+      setErrors(errors.filter((erro) => erro.field !== "password"));
+    }
+  }
+
+  function findErrorByFieldName(fieldName: string) {
+    const errorMessage = errors.find(
+      (error) => error.field === fieldName
+    )?.message;
+
+    return errorMessage || "";
+  }
 
   return (
     <Content>
@@ -46,37 +111,28 @@ const Login = () => {
           <View style={{ gap: 24 }}>
             <FormGroup
               label="E-mail"
-              errorMessage={errorMessage}
+              errorMessage={findErrorByFieldName("email")}
               keyboardType="email-address"
               placeholder="Seu email de acesso"
               value={userData.email}
-              onChange={(
-                event: NativeSyntheticEvent<TextInputChangeEventData>
-              ) =>
+              onChange={(event: TextInputTextInputEventData) =>
                 setUserData((prevState) => ({
                   ...prevState,
-                  email: event.nativeEvent.text,
+                  email: event.text,
                 }))
               }
+              onEndEditing={handleEmailEndEditing}
             />
             <FormGroup
               label="Senha"
-              errorMessage={errorMessage}
-              keyboardType="email-address"
+              errorMessage={findErrorByFieldName("password")}
               placeholder="Insira a sua senha"
-              value={userData.password}
               isPasswordInput={true}
-              onChange={(
-                event: NativeSyntheticEvent<TextInputChangeEventData>
-              ) =>
-                setUserData((prevState) => ({
-                  ...prevState,
-                  password: event.nativeEvent.text,
-                }))
-              }
+              value={userData.password}
+              onChange={handlePasswordChange}
             />
           </View>
-          <MyButton aria-label="button" disabled={true} role="button">
+          <MyButton aria-label="button" disabled={false} role="button">
             <ButtonText>Fazer Login</ButtonText>
           </MyButton>
         </Form>
