@@ -1,20 +1,20 @@
+import { ViewProps } from "react-native";
 import styled from "styled-components/native";
 
 export const Content = styled.SafeAreaView`
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  justify-content: center;
   margin-top: 22px;
   background: ${({ theme }) => theme.bg};
-  background-color: blue;
+  flex-grow: 1;
 `;
 
-export const Intro = styled.View`
-  margin: 160px 0;
+interface IntroProps extends ViewProps {
+  keyboardState: boolean;
+}
+
+export const Intro: React.FC<IntroProps> = styled.View`
+  margin: ${({ keyboardState }) =>
+    keyboardState ? "80px 0 48px 0" : "160px 0 120px 0"};
   align-items: center;
-  justify-content: center;
-  background-color: red;
 `;
 
 export const Welcome = styled.Text`
@@ -30,9 +30,8 @@ export const Waiter = styled.Text`
 
 export const Form = styled.View`
   margin: 0px 24px;
-  background-color: green;
   justify-content: space-between;
-  background-color: red;
+  flex-grow: 1;
 `;
 
 export const MyButton = styled.TouchableOpacity`
@@ -40,7 +39,8 @@ export const MyButton = styled.TouchableOpacity`
     disabled ? theme.gray.gray200 : theme.brand.red};
   align-items: center;
   padding: 14px 28px 14px 28px;
-  margin-top: 60px;
+  margin: 24px 0;
+  justify-self: flex-end;
   border-radius: 24px;
 `;
 

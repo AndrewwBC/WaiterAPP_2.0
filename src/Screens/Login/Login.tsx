@@ -1,10 +1,9 @@
 import {
+  Keyboard,
   KeyboardAvoidingView,
   NativeSyntheticEvent,
   Text,
-  TextInputAndroidProps,
   TextInputChangeEventData,
-  TouchableOpacity,
   View,
 } from "react-native";
 import {
@@ -20,15 +19,20 @@ import FormGroup from "../../components/FormGroup/FormGroup";
 import { FormEvent, useState } from "react";
 
 const Login = () => {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("asdasd");
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
 
+  const [keyboard, setKeyboard] = useState(false);
+
+  Keyboard.addListener("keyboardDidShow", () => setKeyboard(true));
+  Keyboard.addListener("keyboardDidHide", () => setKeyboard(false));
+
   return (
     <Content>
-      <Intro>
+      <Intro keyboardState={keyboard}>
         <Welcome>Bem-vindo(a) ao</Welcome>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Waiter>WAITER</Waiter>
@@ -37,7 +41,7 @@ const Login = () => {
           </Text>
         </View>
       </Intro>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+      <KeyboardAvoidingView style={{ flexGrow: 1 }} behavior="height">
         <Form>
           <View style={{ gap: 24 }}>
             <FormGroup
