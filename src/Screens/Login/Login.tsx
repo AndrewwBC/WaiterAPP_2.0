@@ -41,11 +41,9 @@ const Login = () => {
     event: NativeSyntheticEvent<TextInputEndEditingEventData>
   ) {
     const typedEmail = event.nativeEvent.text;
-    console.log(typedEmail);
 
     const errorAlreadyExists = errors.find((error) => error.field === "email");
 
-    console.log(!isEmailValid(typedEmail));
     if (!isEmailValid(typedEmail) && !errorAlreadyExists) {
       setErrors((prevState) => [
         {
@@ -61,10 +59,23 @@ const Login = () => {
     }
   }
 
-  function handlePasswordChange(
-    event: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    const typedPassword = event.nativeEvent.text;
+  function handleEmailChange(text: string) {
+    setUserData((prevState) => ({
+      ...prevState,
+      email: text,
+    }));
+
+    const thereIsAnError = errors.find((error) => error.field === "email");
+
+    if (thereIsAnError) {
+      if (!isEmailValid(text)) {
+        setErrors(errors.filter((error) => error.field !== "email"));
+      }
+    }
+  }
+
+  function handlePasswordChange(text: string) {
+    const typedPassword = text;
 
     const errorAlreadyExists = errors.find((erro) => erro.field === "password");
 
@@ -95,6 +106,40 @@ const Login = () => {
     return errorMessage || "";
   }
 
+  function handleSubmit() {
+    if (!isEmailValid(userData.email)) {
+      setErrors((prevState) => [
+        {
+          ...prevState,
+          field: "email",
+          message: "Email inválido",
+        },
+      ]);
+    }
+
+    if (userData.password.length < 8) {
+      setErrors((prevState) => [
+        {
+          ...prevState,
+          field: "password",
+          message: "A senha deve ter o mínimo de 8 caractéres",
+        },
+      ]);
+    }
+  }
+
+  function handleDisabledButton() {
+    if (errors.some((errors) => errors.field)) {
+      return true;
+    }
+
+    const checkIfFieldsAreEmpty = Object.values(userData).some(
+      (data) => data.length < 1
+    );
+
+    return checkIfFieldsAreEmpty;
+  }
+
   return (
     <Content>
       <Intro keyboardState={keyboard}>
@@ -115,12 +160,7 @@ const Login = () => {
               keyboardType="email-address"
               placeholder="Seu email de acesso"
               value={userData.email}
-              onChange={(event: TextInputTextInputEventData) =>
-                setUserData((prevState) => ({
-                  ...prevState,
-                  email: event.text,
-                }))
-              }
+              onChange={handleEmailChange}
               onEndEditing={handleEmailEndEditing}
             />
             <FormGroup
@@ -132,7 +172,12 @@ const Login = () => {
               onChange={handlePasswordChange}
             />
           </View>
-          <MyButton aria-label="button" disabled={false} role="button">
+          <MyButton
+            onPress={handleSubmit}
+            aria-label="button"
+            disabled={handleDisabledButton()}
+            role="button"
+          >
             <ButtonText>Fazer Login</ButtonText>
           </MyButton>
         </Form>
