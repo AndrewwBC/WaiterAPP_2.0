@@ -27,7 +27,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar animated={true} backgroundColor="black" style="inverted" />
+      <StatusBar animated={true} backgroundColor="#f2f2f2" style="dark" />
       <Login />
     </ThemeProvider>
   );

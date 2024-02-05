@@ -44,8 +44,8 @@ const Login = () => {
 
     if (!isEmailValid(typedEmail) && !errorAlreadyExists) {
       setErrors((prevState) => [
+        ...prevState,
         {
-          ...prevState,
           field: "email",
           message: "Email inválido",
         },
@@ -63,13 +63,8 @@ const Login = () => {
       email: text,
     }));
 
-    const thereIsAnError = errors.find((error) => error.field === "email");
-
-    if (thereIsAnError) {
-      if (!isEmailValid(text)) {
-        setErrors(errors.filter((error) => error.field !== "email"));
-      }
-    }
+    if (isEmailValid(text))
+      setErrors(errors.filter((error) => error.field !== "email"));
   }
 
   function handlePasswordChange(text: string) {
@@ -84,8 +79,8 @@ const Login = () => {
 
     if (typedPassword.length < 8 && !errorAlreadyExists) {
       setErrors((prevState) => [
+        ...prevState,
         {
-          ...prevState,
           field: "password",
           message: "A senha deve ter o mínimo de 8 caractéres",
         },
@@ -124,10 +119,14 @@ const Login = () => {
         },
       ]);
     }
+
+    console.log(userData);
   }
 
   function handleDisabledButton() {
     if (errors.some((errors) => errors.field)) {
+      errors.some((errors) => console.log(errors.field));
+
       return true;
     }
 

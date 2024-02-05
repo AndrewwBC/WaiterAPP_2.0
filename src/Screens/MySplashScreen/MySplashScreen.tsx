@@ -1,10 +1,12 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 import { Container, SubTitle, TextContainer, WaiterText } from "./styles";
+import { StatusBar } from "expo-status-bar";
 
 const MySplashScreen = () => {
   return (
     <Container>
+      <StatusBar animated={true} backgroundColor="#D73035" style="light" />
       <Image
         source={require("../../assets/images/splash/splash_screen.png")}
         resizeMode="contain"
