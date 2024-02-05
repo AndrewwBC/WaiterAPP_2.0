@@ -1,13 +1,14 @@
-import { Text } from "react-native";
-import Login from "./src/Screens/Login/Login";
+import { useCallback, useEffect, useState } from "react";
+
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/assets/css/theme";
-import { StatusBar } from "expo-status-bar";
-import { useFonts } from "expo-font";
-import { useEffect } from "react";
-import * as SplashScreen from "expo-splash-screen";
 
-SplashScreen.preventAutoHideAsync();
+import { StatusBar } from "expo-status-bar";
+import { loadAsync, useFonts } from "expo-font";
+
+import MySplashScreen from "./src/Screens/MySplashScreen/MySplashScreen";
+
+import Login from "./src/Screens/Login/Login";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -16,20 +17,18 @@ export default function App() {
     GeneralSans600: require("./src/assets/fonts/GeneralSans-Bold.otf"),
   });
 
-  useEffect(() => {
-    setTimeout(() => {
-      SplashScreen.hideAsync();
-    }, 1000);
-  });
-
   if (!isFontsLoaded) {
-    return <Text>Oi</Text>;
+    return (
+      <ThemeProvider theme={theme}>
+        <MySplashScreen />
+      </ThemeProvider>
+    );
   }
 
   return (
     <ThemeProvider theme={theme}>
       <StatusBar animated={true} backgroundColor="black" style="inverted" />
-      <Login></Login>
+      <Login />
     </ThemeProvider>
   );
 }

@@ -4,9 +4,7 @@ import {
   KeyboardAvoidingView,
   NativeSyntheticEvent,
   Text,
-  TextInputChangeEventData,
   TextInputEndEditingEventData,
-  TextInputTextInputEventData,
   View,
 } from "react-native";
 import {
