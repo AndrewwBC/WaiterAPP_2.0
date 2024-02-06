@@ -16,8 +16,9 @@ import {
   Waiter,
   Welcome,
 } from "./styles";
-import FormGroup from "../../components/FormGroup/FormGroup";
+import FormGroup from "../../components/FormGroup";
 import { ChangeEvent, FormEvent, useState } from "react";
+import WaiterAppText from "../../components/WaiterAppText";
 
 const Login = () => {
   const [errors, setErrors] = useState([
@@ -99,6 +100,20 @@ const Login = () => {
     return errorMessage || "";
   }
 
+  function handleDisabledButton() {
+    if (errors.some((errors) => errors.field)) {
+      errors.some((errors) => console.log(errors.field));
+
+      return true;
+    }
+
+    const checkIfFieldsAreEmpty = Object.values(userData).some(
+      (data) => data.length < 1
+    );
+
+    return checkIfFieldsAreEmpty;
+  }
+
   function handleSubmit() {
     if (!isEmailValid(userData.email)) {
       setErrors((prevState) => [
@@ -123,29 +138,12 @@ const Login = () => {
     console.log(userData);
   }
 
-  function handleDisabledButton() {
-    if (errors.some((errors) => errors.field)) {
-      errors.some((errors) => console.log(errors.field));
-
-      return true;
-    }
-
-    const checkIfFieldsAreEmpty = Object.values(userData).some(
-      (data) => data.length < 1
-    );
-
-    return checkIfFieldsAreEmpty;
-  }
-
   return (
     <Content>
       <Intro keyboardState={keyboard}>
         <Welcome>Bem-vindo(a) ao</Welcome>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Waiter>WAITER</Waiter>
-          <Text style={{ fontFamily: "GeneralSans400", fontSize: 24 }}>
-            APP
-          </Text>
+          <WaiterAppText />
         </View>
       </Intro>
       <KeyboardAvoidingView style={{ flexGrow: 1 }} behavior="height">

@@ -6,9 +6,10 @@ import { theme } from "./src/assets/css/theme";
 import { StatusBar } from "expo-status-bar";
 import { loadAsync, useFonts } from "expo-font";
 
-import MySplashScreen from "./src/Screens/MySplashScreen/MySplashScreen";
+import MySplashScreen from "./src/Screens/MySplashScreen";
 
 import Login from "./src/Screens/Login/Login";
+import Home from "./src/Screens/Home/Home";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -28,7 +29,8 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar animated={true} backgroundColor="#f2f2f2" style="dark" />
-      <Login />
+      {/* <Login /> */}
+      <Home />
     </ThemeProvider>
   );
 }
