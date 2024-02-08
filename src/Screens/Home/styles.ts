@@ -12,6 +12,7 @@ export const Header = styled.View`
   align-items: center;
 `;
 
-export const IconContainer = styled.View`
-  padding: 4px;
+export const Menu = styled.View`
+  margin-top: 48px;
+  align-items: center;
 `;
