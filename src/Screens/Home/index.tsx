@@ -7,16 +7,7 @@ const Home = () => {
     <Container>
       <Header>
         <View>
-          <Text
-            style={{
-              color: "#333",
-              fontFamily: "GeneralSans400",
-              marginBottom: 4,
-            }}
-          >
-            Bem-vindo(a) ao
-          </Text>
-          <WaiterAppText />
+          <WaiterAppText alignItems="flex-start" color="#444" />
         </View>
         <IconContainer>
           <Image

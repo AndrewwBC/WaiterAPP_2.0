@@ -8,8 +8,9 @@ import { loadAsync, useFonts } from "expo-font";
 
 import MySplashScreen from "./src/Screens/MySplashScreen";
 
-import Login from "./src/Screens/Login/Login";
-import Home from "./src/Screens/Home/Home";
+import Login from "./src/Screens/Login";
+import Home from "./src/Screens/Home";
+import LoadingScreenAfterLogin from "./src/Screens/Login/LoadingScreenAfterLogin";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -31,6 +32,7 @@ export default function App() {
       <StatusBar animated={true} backgroundColor="#f2f2f2" style="dark" />
       {/* <Login /> */}
       <Home />
+      {/* <LoadingScreenAfterLogin /> */}
     </ThemeProvider>
   );
 }

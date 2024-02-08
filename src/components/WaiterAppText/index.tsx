@@ -1,14 +1,24 @@
-import { Text, View } from "react-native";
+import { FlexAlignType, Text, View } from "react-native";
 
-const WaiterAppText = () => {
+interface WaiterAppTextProps {
+  color?: string;
+  alignItems: FlexAlignType;
+}
+
+const WaiterAppText = ({ color, alignItems }: WaiterAppTextProps) => {
   return (
-    <View>
+    <View style={{ alignItems: alignItems }}>
       <Text
-        style={{ fontFamily: "GeneralSans600", fontSize: 24, color: "#444" }}
+        style={{ color: color, fontFamily: "GeneralSans400", marginBottom: 4 }}
+      >
+        Bem-vindo(a) ao
+      </Text>
+      <Text
+        style={{ fontFamily: "GeneralSans600", fontSize: 24, color: color }}
       >
         WAITER
         <Text
-          style={{ fontFamily: "GeneralSans400", fontSize: 24, color: "#444" }}
+          style={{ fontFamily: "GeneralSans400", fontSize: 24, color: color }}
         >
           APP
         </Text>

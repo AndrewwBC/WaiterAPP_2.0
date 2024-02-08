@@ -3,7 +3,6 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   NativeSyntheticEvent,
-  Text,
   TextInputEndEditingEventData,
   View,
 } from "react-native";
@@ -17,7 +16,7 @@ import {
   Welcome,
 } from "./styles";
 import FormGroup from "../../components/FormGroup";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useState } from "react";
 import WaiterAppText from "../../components/WaiterAppText";
 
 const Login = () => {
@@ -141,10 +140,7 @@ const Login = () => {
   return (
     <Content>
       <Intro keyboardState={keyboard}>
-        <Welcome>Bem-vindo(a) ao</Welcome>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <WaiterAppText />
-        </View>
+        <WaiterAppText alignItems="center" />
       </Intro>
       <KeyboardAvoidingView style={{ flexGrow: 1 }} behavior="height">
         <Form>
